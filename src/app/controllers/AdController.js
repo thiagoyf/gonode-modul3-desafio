@@ -5,6 +5,8 @@ class AdController {
   async index (req, res) {
     const filters = {}
 
+    filters.purchaseBy = null
+
     if (req.query.price_min || req.query.price_max) {
       filters.price = {}
 
