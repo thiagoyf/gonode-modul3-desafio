@@ -3,9 +3,9 @@ const Ad = require('../models/Ad')
 class AdController {
   // Metodo para listagem
   async index (req, res) {
-    const filters = {}
-
-    filters.purchaseBy = null
+    const filters = {
+      purchasedBy: null
+    }
 
     if (req.query.price_min || req.query.price_max) {
       filters.price = {}

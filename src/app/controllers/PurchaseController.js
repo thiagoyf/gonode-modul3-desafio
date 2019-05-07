@@ -1,5 +1,7 @@
 const Ad = require('../models/Ad')
 const User = require('../models/User')
+const Purchase = require('../models/Purchase')
+
 const PurchaseMail = require('../jobs/PurchaseMail')
 const Queue = require('../services/Queue')
 
@@ -8,7 +10,14 @@ class PurchaseController {
     const { ad, content } = req.body
 
     const purchaseAd = await Ad.findById(ad).populate('author')
+
+    if (purchaseAd.purchasedBy) {
+      return res.status(400).json({ error: 'Ad does not exist' })
+    }
+
     const user = await User.findById(req.userId)
+
+    const purchase = await Purchase.create({ ad: purchaseAd, user, content })
 
     Queue.create(PurchaseMail.key, {
       ad: purchaseAd,
@@ -16,7 +25,7 @@ class PurchaseController {
       content
     }).save()
 
-    return res.send()
+    return res.json(purchase)
   }
 }
 

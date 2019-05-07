@@ -27,7 +27,7 @@ class App {
   }
 
   sentry () {
-    Sentry.init(sentryConfig)
+    // Sentry.init(sentryConfig)
   }
 
   database () {
@@ -47,9 +47,9 @@ class App {
   }
 
   exception () {
-    if (process.env.NODE_ENV === 'production') {
-      this.express.use(Sentry.Handlers.errorHandler())
-    }
+    // if (process.env.NODE_ENV === 'production') {
+    //   this.express.use(Sentry.Handlers.errorHandler())
+    // }
 
     this.express.use(async (err, req, res, next) => {
       if (err instanceof validate.ValidationError) {

@@ -19,7 +19,7 @@ const Ad = mongoose.Schema({
     type: Number,
     required: true
   },
-  purchaseBy: {
+  purchasedBy: {
     type: mongoose.Types.ObjectId,
     ref: 'User'
   },
